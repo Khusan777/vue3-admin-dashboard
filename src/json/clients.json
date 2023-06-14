@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Xusan",
+      "img": "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+      "birth_date": "1999-10-22",
+      "telephone": "+998909867584",
+      "product": {
+        "name": "Noutbuk Lenovo Thinkpad",
+        "price": 3000
+      }
+    },
+    {
+      "id": 2,
+      "name": "Nozim",
+      "img": "https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+      "birth_date": "2002-04-23",
+      "telephone": "+9989098640564",
+      "product": {
+        "name": "Acer Vivobook",
+        "price": 1500
+      }
+    }
+  ]
+}
