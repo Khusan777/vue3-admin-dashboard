@@ -185,7 +185,6 @@ const editSelectedClient = () => {
     clientEditStateValidation.value.$touch()
     return false
   } else {
-    console.log(editClientState)
     clientProducts.clients[props.index] = {
       ...editClientState,
       birth_date: editClientState.birth_date.toLocaleString()
