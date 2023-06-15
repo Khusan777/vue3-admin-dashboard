@@ -2,25 +2,13 @@ import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 // @ts-ignore
 import clientsData from '@/json/clients.json'
+import type { TClientProduct } from '@/types/TClient'
 
 export const useProductStore = defineStore('products', () => {
-  const clients = ref(clientsData.data)
+  const clients = ref<TClientProduct[]>(clientsData.data)
   const getClients = computed(() => clients.value)
 
-  type TClientProduct = {
-    id: number
-    name: string
-    img: string
-    birth_date: string
-    telephone: string
-    product: {
-      name: string
-      price: number
-      comment: string
-    }
-  }
-
-  const addClient = (clientData: TClientProduct): void => {
+  const addClient = (clientData: TClientProduct[]): void => {
     clients.value = [...clients.value, ...clientData]
   }
 

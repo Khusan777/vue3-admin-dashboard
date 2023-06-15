@@ -113,9 +113,9 @@ import { useProductStore } from '@/store/core'
 const clientProducts = useProductStore()
 
 type TClientProduct = {
-  id?: number
+  id: number
   name: string
-  img?: string
+  img: string
   birth_date: string | Date
   telephone: string
   product: {
@@ -133,19 +133,39 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const initialState = {
+const initialState: {
+  id: number | string
+  img: string
+  name: string
+  birth_date: string
+  telephone: string
+  product: { name: string; price: number | null; comment: string }
+} = {
   name: '',
   birth_date: new Date().toLocaleString(),
   telephone: '',
+  img: '',
   product: {
     name: '',
     price: null,
     comment: ''
-  }
+  },
+  id: ''
 }
 
-let editClientState = reactive({
-  id: props.personData.id,
+let editClientState = reactive<{
+  id: number | string
+  name: string
+  img: string
+  birth_date: string | Date
+  telephone: string
+  product: {
+    name: string
+    price: number | null
+    comment: string
+  }
+}>({
+  id: props.personData.id!,
   name: '',
   img: '',
   birth_date: new Date().toLocaleString(),
@@ -185,7 +205,7 @@ const editSelectedClient = () => {
     clientEditStateValidation.value.$touch()
     return false
   } else {
-    clientProducts.clients[props.index] = {
+    clientProducts.clients[props.index!] = {
       ...editClientState,
       birth_date: editClientState.birth_date.toLocaleString()
     }
@@ -197,8 +217,8 @@ const editSelectedClient = () => {
 watch(
   () => props.personData,
   () => {
-    editClientState.id = props.personData.id
-    editClientState.img = props.personData.img
+    editClientState.id = props.personData.id!
+    editClientState.img = props.personData.img!
     editClientState.name = props.personData.name
     editClientState.telephone = props.personData.telephone
     editClientState.birth_date = props.personData.birth_date

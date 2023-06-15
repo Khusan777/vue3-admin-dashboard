@@ -118,7 +118,12 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: false
 })
 
-const initialState = {
+const initialState: {
+  name: string
+  birth_date: string
+  telephone: string
+  product: { name: string; price: number | null; comment: string }
+} = {
   name: '',
   birth_date: new Date().toLocaleDateString(),
   telephone: '',
@@ -128,7 +133,16 @@ const initialState = {
     comment: ''
   }
 }
-let clientState = reactive({
+let clientState = reactive<{
+  name: string
+  birth_date: string | Date
+  telephone: string
+  product: {
+    name: string
+    price: number | null
+    comment?: string
+  }
+}>({
   name: '',
   birth_date: new Date(),
   telephone: '',
