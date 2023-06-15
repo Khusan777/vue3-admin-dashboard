@@ -32,7 +32,7 @@
           <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             <TableRow
               @deleted-client="deleteClient($event, true)"
-              @edited-client="editClient($event, true)"
+              @edited-client="editClient(index, $event)"
               v-for="(person, index) in clientsData"
               :key="person.id"
               :person="person"
@@ -56,7 +56,11 @@
     </div>
 
     <CreateClient v-model="isCreateModal"></CreateClient>
-    <EditClient :personData="initialState" v-model="isEditModal"></EditClient>
+    <EditClient
+      :personData="initialState"
+      :index="indexSelectedClient"
+      v-model="isEditModal"
+    ></EditClient>
 
     <!--    // Delete Client-->
     <Modal
@@ -125,6 +129,7 @@ type TClientProduct = {
   }
 }
 
+const indexSelectedClient = ref<number>()
 const isCreateModal = ref<boolean>(false)
 const isEditModal = ref<boolean>(false)
 const deletedIdClient = ref<number | null>()
@@ -138,8 +143,9 @@ const closeModal = (isOpen: boolean): void => {
   isDeleteModal.value = isOpen
 }
 
-const editClient = (personData: TClientProduct) => {
+const editClient = (indexClient: number, personData: TClientProduct) => {
   isEditModal.value = true
+  indexSelectedClient.value = indexClient
   initialState = personData
 }
 

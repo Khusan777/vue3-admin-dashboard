@@ -11,6 +11,8 @@
             loading="lazy"
           />
           <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+        </div>
+        <div>
           <p class="font-semibold">{{ person.name }}</p>
         </div>
       </div>
@@ -27,14 +29,14 @@
       <div
         class="px-2 py-1 font-semibold leading-tight bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
       >
-        <p>{{ person.product?.name }}</p>
+        <p class="text-center">{{ person.product?.name }}</p>
       </div>
     </td>
     <td class="px-4 py-3 text-xs">
       <div
         class="px-2 py-1 font-semibold leading-tight text-black-500 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300"
       >
-        <p>{{ person.product?.price }} $</p>
+        <p class="text-center">{{ person.product?.price }} $</p>
       </div>
     </td>
     <td class="px-4 py-3 text-xs">

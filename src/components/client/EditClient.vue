@@ -6,7 +6,6 @@
     title="Редактирование клиента"
     content="Пожалуйста заполните форму"
   >
-    <pre>{{ editClientState }}</pre>
     <div class="py-6 flex space-x-6">
       <BaseInput
         label="Имя клиента"
@@ -100,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, defineProps } from 'vue'
+import { reactive, defineProps, watch } from 'vue'
 import { helpers, minLength, numeric, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
@@ -129,6 +128,7 @@ type TClientProduct = {
 interface Props {
   modelValue: boolean
   personData: TClientProduct
+  index: number | undefined
 }
 
 const props = defineProps<Props>()
@@ -143,8 +143,19 @@ const initialState = {
     comment: ''
   }
 }
-let editClientState = reactive({})
-editClientState = { ...props.personData }
+
+let editClientState = reactive({
+  id: props.personData.id,
+  name: '',
+  img: '',
+  birth_date: new Date().toLocaleString(),
+  telephone: '',
+  product: {
+    name: '',
+    price: null,
+    comment: ''
+  }
+})
 
 const validationEditClientState = {
   editClientState: {
@@ -174,17 +185,29 @@ const editSelectedClient = () => {
     clientEditStateValidation.value.$touch()
     return false
   } else {
-    clientProducts.clients.push({
-      id: clientProducts.clients?.length + 1 ?? 1,
+    console.log(editClientState)
+    clientProducts.clients[props.index] = {
       ...editClientState,
-      birth_date: editClientState.birth_date.toLocaleString(),
-      img: `https://source.unsplash.com/featured/300x${100 + clientProducts.clients?.length + 1}`
-    })
+      birth_date: editClientState.birth_date.toLocaleString()
+    }
   }
   changeModalState(false)
   editClientState = reactive({ ...initialState })
 }
 
+watch(
+  () => props.personData,
+  () => {
+    editClientState.id = props.personData.id
+    editClientState.img = props.personData.img
+    editClientState.name = props.personData.name
+    editClientState.telephone = props.personData.telephone
+    editClientState.birth_date = props.personData.birth_date
+    editClientState.product.name = props.personData.product.name
+    editClientState.product.price = props.personData.product.price
+    editClientState.product.comment = props.personData.product.comment
+  }
+)
 const emit = defineEmits(['update:modelValue'])
 const changeModalState = (value: boolean): void => {
   emit('update:modelValue', value)
