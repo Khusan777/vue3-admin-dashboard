@@ -33,7 +33,7 @@
             <TableRow
               @deleted-client="deleteClient($event, true)"
               @edited-client="editClient(index, $event)"
-              v-for="(person, index) in clientsData"
+              v-for="(person, index) in clientProducts.clients"
               :key="person.id"
               :person="person"
               :index="index"
@@ -46,7 +46,7 @@
         class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
       >
         <span class="flex items-center col-span-3">
-          Showing 1-{{ clientsData.length }} of {{ clientsData.length }}
+          Showing 1-{{ clientProducts.clients.length }} of {{ clientProducts.clients.length }}
         </span>
         <span class="col-span-2"></span>
       </div>
@@ -65,7 +65,7 @@
     <!--    // Delete Client-->
     <Modal
       title="Удаление клиента"
-      content="Вы действительно хотите удалить клиента"
+      content="Вы действительно хотите удалить клиента?"
       @close-modal="closeModal($event)"
       :is-open="isDeleteModal"
     >
@@ -80,6 +80,7 @@
         <Button
           @click="deletedClient"
           size="xl"
+          color="red"
           class="px-6 py-2 ml-2 text-blue-100 bg-blue-600 rounded"
           >Delete</Button
         >
@@ -103,7 +104,6 @@ import CreateClient from '@/components/client/CreateClient.vue'
 import EditClient from '@/components/client/EditClient.vue'
 
 const clientProducts = useProductStore()
-const clientsData = clientProducts.getClients
 
 let initialState: TClientProduct = {
   name: '',
@@ -129,13 +129,13 @@ type TClientProduct = {
   }
 }
 
-const indexSelectedClient = ref<number>()
+const indexSelectedClient = ref<number | null>(null)
 const isCreateModal = ref<boolean>(false)
 const isEditModal = ref<boolean>(false)
-const deletedIdClient = ref<number | null>()
+const deletedIdClient = ref<string>()
 
 const isDeleteModal = ref<boolean>(false)
-const deleteClient = (id: number, open: boolean) => {
+const deleteClient = (id: string, open: boolean) => {
   deletedIdClient.value = id
   isDeleteModal.value = open
 }
@@ -143,14 +143,28 @@ const closeModal = (isOpen: boolean): void => {
   isDeleteModal.value = isOpen
 }
 
-const editClient = (indexClient: number, personData: TClientProduct) => {
+const editClient = (indexElement: number, personData: TClientProduct) => {
+  indexSelectedClient.value = indexElement
   isEditModal.value = true
-  indexSelectedClient.value = indexClient
   initialState = personData
 }
 
 const deletedClient = (): void => {
-  clientProducts.clients.splice(deletedIdClient.value!, 1)
+  clientProducts
+    .removeClient(deletedIdClient.value!)
+    .then(() => {
+      clientProducts
+        .getAllClients()
+        .then((response) => {
+          clientProducts.clients = [...response.data]
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   isDeleteModal.value = false
 }
 </script>

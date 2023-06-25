@@ -128,13 +128,13 @@ type TClientProduct = {
 interface Props {
   modelValue: boolean
   personData: TClientProduct
-  index: number | undefined
+  index: number | null
 }
 
 const props = defineProps<Props>()
 
 const initialState: {
-  id: number | string
+  id: string
   img: string
   name: string
   birth_date: string
@@ -154,7 +154,7 @@ const initialState: {
 }
 
 let editClientState = reactive<{
-  id: number | string
+  id: string
   name: string
   img: string
   birth_date: string | Date
@@ -165,7 +165,7 @@ let editClientState = reactive<{
     comment: string
   }
 }>({
-  id: props.personData.id!,
+  id: String(props.personData.id)!,
   name: '',
   img: '',
   birth_date: new Date().toLocaleString(),
@@ -177,13 +177,20 @@ let editClientState = reactive<{
   }
 })
 
+const plusSymbolValidate = (telephoneNumber: string) => telephoneNumber.startsWith('+')
+
 const validationEditClientState = {
   editClientState: {
     name: {
       required: helpers.withMessage('Поле обязательно для заполнения', required)
     },
     telephone: {
-      required: helpers.withMessage('Поле обязательно для заполнения', required)
+      required: helpers.withMessage('Поле обязательно для заполнения', required),
+      minLength: minLength(8),
+      plusSymbolValidate: helpers.withMessage(
+        'Телeфон номер должен начинаться с символа +',
+        plusSymbolValidate
+      )
     },
     product: {
       name: {
@@ -197,7 +204,11 @@ const validationEditClientState = {
     }
   }
 }
-const clientEditStateValidation = useVuelidate(validationEditClientState, { editClientState })
+const clientEditStateValidation = useVuelidate(
+  validationEditClientState,
+  { editClientState },
+  { $scope: false }
+)
 
 const editSelectedClient = () => {
   clientEditStateValidation.value.$reset()
@@ -205,10 +216,16 @@ const editSelectedClient = () => {
     clientEditStateValidation.value.$touch()
     return false
   } else {
-    clientProducts.clients[props.index!] = {
-      ...editClientState,
-      birth_date: editClientState.birth_date.toLocaleString()
-    }
+    clientProducts
+      .editClient(editClientState.id!, {
+        ...editClientState
+      })
+      .then((response) => {
+        clientProducts.clients[props.index!] = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   changeModalState(false)
   editClientState = reactive({ ...initialState })
@@ -217,7 +234,7 @@ const editSelectedClient = () => {
 watch(
   () => props.personData,
   () => {
-    editClientState.id = props.personData.id!
+    editClientState.id = String(props.personData.id)!
     editClientState.img = props.personData.img!
     editClientState.name = props.personData.name
     editClientState.telephone = props.personData.telephone
@@ -227,6 +244,7 @@ watch(
     editClientState.product.comment = props.personData.product.comment
   }
 )
+
 const emit = defineEmits(['update:modelValue'])
 const changeModalState = (value: boolean): void => {
   emit('update:modelValue', value)

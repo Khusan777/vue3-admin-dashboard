@@ -1,11 +1,11 @@
 <template>
-  <div class="container my-6 h-screen">
-    <div class="flex justify-center items-center">
+  <div class="container h-auto">
+    <div class="flex justify-center items-center z-10">
       <div
         v-show="isOpen"
-        class="absolute inset-0 flex items-center justify-center top-20 bg-gray-700 bg-opacity-50"
+        class="absolute inset-0 flex items-center max-w-2xl justify-center bg-opacity-90"
       >
-        <div class="max-w-2xl p-6 mx-4 bg-gray-100 rounded-md shadow-xl">
+        <div class="max-w-full p-6 mx-4 bg-gray-100 rounded-md shadow-xl">
           <div class="flex items-center justify-between">
             <h3 class="text-2xl">{{ title }}</h3>
             <svg

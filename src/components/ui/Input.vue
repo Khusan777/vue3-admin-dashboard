@@ -29,7 +29,6 @@ export default {
 
 <script setup>
 import Label from '@/components/ui/Label.vue'
-import FormError from '@/components/ui/FormError.vue'
 import { onMounted, reactive } from 'vue'
 
 const props = defineProps({

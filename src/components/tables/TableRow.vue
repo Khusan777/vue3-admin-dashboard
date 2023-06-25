@@ -41,7 +41,7 @@
     </td>
     <td class="px-4 py-3 text-xs">
       <div class="px-2 py-1 flex sm:flex-col md:flex-row space-x-2">
-        <Button size="lg" @click="deleteClientData(index)" color="red"
+        <Button size="lg" @click="deleteClientData(person.id)" color="red"
           ><TrashIcon class="w-4 h-4 text-red"></TrashIcon
         ></Button>
         <Button size="lg" @click="editClientData(person)"

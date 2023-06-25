@@ -4,7 +4,11 @@
     <div class="flex flex-col flex-1 w-full">
       <Navigation @open-side-menu="isSideMenuOpen = !isSideMenuOpen" />
       <div class="p-6 dark:text-white">
-        <RouterView />
+        <router-view v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
     </div>
   </div>
@@ -19,6 +23,22 @@ import { RouterView } from 'vue-router'
 import Sidebar from '../components/ui/Sidebar.vue'
 import Navigation from '../components/ui/Navigation.vue'
 import FooterPartial from '@/components/footer/FooterPartial.vue'
+import { useProductStore } from '@/store/core'
+
+const productStore = useProductStore()
+
+const getAllClientsProduct = () => {
+  productStore
+    .getAllClients()
+    .then((response) => {
+      productStore.clients = response.data || []
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+getAllClientsProduct()
 
 const isSideMenuOpen = ref(false)
 </script>

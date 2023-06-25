@@ -2,7 +2,7 @@ export type TClientProduct = {
   id: string | number
   name: string
   img: string
-  birth_date: string
+  birth_date: string | Date
   telephone: string
   product: {
     name: string

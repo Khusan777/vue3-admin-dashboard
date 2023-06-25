@@ -6,7 +6,6 @@
       { 'px-4 py-2 text-sm': size === 'md' },
       { 'bg-purple-600': color === 'purple' },
       { 'bg-red-600': color === 'red' },
-      { 'bg-yellow-600': color === 'yellow' },
       disabled ? 'opacity-50 cursor-pointer' : ''
     ]"
     class="font-medium leading-5 text-white border border-transparent rounded-lg hover:bg-gray-200 focus:outline-none focus:shadow-outline-purple flex items-center transition duration-200 ease-in"
@@ -33,7 +32,7 @@ defineProps({
     type: String,
     default: 'purple',
     validator(value: string) {
-      return value === 'purple' || value === 'red' || value === 'yellow'
+      return value === 'purple' || value === 'red'
     }
   },
   disabled: {

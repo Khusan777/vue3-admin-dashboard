@@ -152,13 +152,20 @@ let clientState = reactive<{
     comment: ''
   }
 })
+
+const plusSymbolValidate = (telephoneNumber: string) => telephoneNumber.startsWith('+')
 const validationClientState = {
   clientState: {
     name: {
       required: helpers.withMessage('Поле обязательно для заполнения', required)
     },
     telephone: {
-      required: helpers.withMessage('Поле обязательно для заполнения', required)
+      required: helpers.withMessage('Поле обязательно для заполнения', required),
+      minLength: minLength(8),
+      plusSymbolValidate: helpers.withMessage(
+        'Телeфон номер должен начинаться с символа +',
+        plusSymbolValidate
+      )
     },
     product: {
       name: {
@@ -180,12 +187,19 @@ const addNewClient = () => {
     clientStateValidation.value.$touch()
     return false
   } else {
-    clientProducts.clients.push({
-      id: Math.random().toString(16).slice(2) || 1,
-      ...clientState,
-      birth_date: clientState.birth_date.toLocaleString(),
-      img: `https://source.unsplash.com/featured/300x${100 + clientProducts.clients?.length + 1}`
-    })
+    clientProducts
+      .addClient({
+        id: Math.random().toString(16).slice(2) || 1,
+        ...clientState,
+        birth_date: clientState.birth_date.toLocaleString(),
+        img: `https://source.unsplash.com/featured/300x${100 + clientProducts.clients?.length + 1}`
+      })
+      .then((response) => {
+        clientProducts.clients.push(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     changeModalState(false)
     clientState = reactive({ ...initialState })
   }

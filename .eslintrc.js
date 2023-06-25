@@ -14,6 +14,19 @@ module.exports = {
     parser: '@typescript-eslint/parser'
   },
   rules: {
+    'vue/valid-v-slot': [
+      'error',
+      {
+        allowModifiers: false
+      }
+    ],
+    'no-restricted-syntax': [
+      'error',
+      'FunctionExpression',
+      'WithStatement',
+      "BinaryExpression[operator='in']"
+    ],
+    'vue/no-restricted-block': ['error', 'style', 'foo', 'bar', 'input'],
     'vue/no-restricted-html-elements': ['error', 'button', 'marquee', 'input'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',

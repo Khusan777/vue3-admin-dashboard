@@ -1,36 +1,27 @@
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-// @ts-ignore
-import clientsData from '@/json/clients.json'
 import type { TClientProduct } from '@/types/TClient'
+import axios from 'axios'
+import type { AxiosRequestConfig } from 'axios'
 
 export const useProductStore = defineStore('products', () => {
-  const clients = ref<TClientProduct[]>(clientsData.data)
+  const clients = ref<TClientProduct[]>([])
   const getClients = computed(() => clients.value)
 
-  const addClient = (clientData: TClientProduct[]): void => {
-    clients.value = [...clients.value, ...clientData]
-  }
+  const addClient = async (clientData: TClientProduct): Promise<AxiosRequestConfig> =>
+    await axios.post('http://localhost:3000/data', clientData)
 
-  const removeClient = (clientIndex: number): void => {
-    clients.value.splice(clientIndex, 1)
-  }
+  const getAllClients = async (): Promise<AxiosRequestConfig> =>
+    await axios.get('http://localhost:3000/data')
 
-  const editClient = (clientIndex: number, updatedClient: TClientProduct): void => {
-    clients.value[clientIndex] = updatedClient
-  }
+  const removeClient = async (clientIndex: string): Promise<AxiosRequestConfig> =>
+    await axios.delete(`http://localhost:3000/data/${clientIndex}`)
 
-  if (localStorage.getItem('clients')) {
-    clients.value = JSON.parse(localStorage.getItem('clients') || '')
-  }
+  const editClient = async (
+    clientId: string,
+    updatedClient: TClientProduct
+  ): Promise<AxiosRequestConfig> =>
+    await axios.patch(`http://localhost:3000/data/${clientId}`, updatedClient)
 
-  watch(
-    clients,
-    (clientValue): void => {
-      localStorage.setItem('clients', JSON.stringify(clientValue))
-    },
-    { deep: true }
-  )
-
-  return { clients, getClients, addClient, removeClient, editClient }
+  return { clients, getClients, addClient, removeClient, editClient, getAllClients }
 })
