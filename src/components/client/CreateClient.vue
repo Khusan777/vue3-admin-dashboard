@@ -192,7 +192,7 @@ const addNewClient = () => {
         id: Math.random().toString(16).slice(2) || 1,
         ...clientState,
         birth_date: clientState.birth_date.toLocaleString(),
-        img: `https://source.unsplash.com/featured/300x${100 + clientProducts.clients?.length + 1}`
+        img: `https://source.unsplash.com/featured/300x${100 + clientProducts.clients?.length + 2}`
       })
       .then((response) => {
         clientProducts.clients.push(response.data)
