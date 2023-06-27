@@ -15,7 +15,7 @@ npm install
 ### Start and run json server
 
 ```sh
-json-server -w clients.json  
+json-server -w articles.json  
 ```
 
 ### Compile and Hot-Reload for Development

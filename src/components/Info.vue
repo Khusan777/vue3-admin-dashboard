@@ -10,7 +10,7 @@
           ></path>
         </svg>
         <span>{{
-          $route.name === 'customers' ? 'Information about customers' : 'Information about client'
+          $route.name === 'customers' ? 'Information about customers' : 'Information about article'
         }}</span>
       </div>
     </div>
@@ -25,7 +25,7 @@
           ></path>
         </svg>
         <span>{{
-          $route.name === 'customers' ? 'Information about customers' : 'Information about client'
+          $route.name === 'customers' ? 'Information about customers' : 'Information about article'
         }}</span>
       </div>
     </div>

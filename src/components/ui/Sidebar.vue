@@ -4,7 +4,7 @@
       class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block h-full border-r border-gray-200 dark:border-gray-700"
     >
       <div class="py-4 text-gray-500 dark:text-gray-400">
-        <router-link class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" to="/clients">
+        <router-link class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" to="/articles">
           Dashboard
         </router-link>
         <ul class="mt-12">
@@ -172,9 +172,9 @@ const isPagesMenuOpen = ref(false)
 
 const pages = [
   {
-    name: 'Clients',
+    name: 'Articles',
     icon: MenuIcon,
-    to: 'clients'
+    to: 'articles'
   },
   {
     name: 'About-View',
@@ -187,14 +187,9 @@ const pages = [
     to: 'about'
   },
   {
-    name: 'Products',
+    name: 'Information',
     icon: CursorClickIcon,
     to: 'home'
-  },
-  {
-    name: 'Customers',
-    icon: CollectionIcon,
-    to: 'customers'
   }
 ]
 

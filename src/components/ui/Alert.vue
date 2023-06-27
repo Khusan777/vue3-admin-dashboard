@@ -13,7 +13,7 @@ defineProps({
   },
   description: {
     type: String,
-    default: 'Client list is empty!!!'
+    default: 'Article list is empty!!!'
   }
 })
 </script>

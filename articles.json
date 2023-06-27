@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "First entity",
+      "description": "Description of first entity"
+    },
+    {
+      "id": 2,
+      "name": "Second entity",
+      "description": "Description of second entity"
+    }
+  ]
+}

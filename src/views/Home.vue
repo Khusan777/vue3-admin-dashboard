@@ -12,7 +12,7 @@
             <UserGroupIcon class="w-6" />
           </div>
           <div>
-            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total clients</p>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total articles</p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">6389</p>
           </div>
         </div>
@@ -41,7 +41,7 @@
             <ShoppingCartIcon class="w-6" />
           </div>
           <div>
-            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">New sales</p>
+            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">New articles</p>
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">376</p>
           </div>
         </div>

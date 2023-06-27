@@ -6,7 +6,7 @@
         :id="state.uniqueId"
         v-bind="$attrs"
         :placeholder="placeholder || label"
-        rows="3"
+        rows="4"
         class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         :value="modelValue"
         @input="updateInput"

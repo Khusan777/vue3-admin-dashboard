@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full bg-gray-50 dark:bg-gray-900" id="app">
+  <div class="flex h-screen bg-gray-50 dark:bg-gray-900" id="app">
     <Sidebar :isSideMenuOpen="isSideMenuOpen" @close-side-menu="isSideMenuOpen = false" />
     <div class="flex flex-col flex-1 w-full">
       <Navigation @open-side-menu="isSideMenuOpen = !isSideMenuOpen" />
@@ -23,22 +23,22 @@ import { RouterView } from 'vue-router'
 import Sidebar from '../components/ui/Sidebar.vue'
 import Navigation from '../components/ui/Navigation.vue'
 import FooterPartial from '@/components/footer/FooterPartial.vue'
-import { useProductStore } from '@/store/core'
+import { useArticleStore } from '@/store/core'
 
-const productStore = useProductStore()
+const articleStore = useArticleStore()
 
-const getAllClientsProduct = () => {
-  productStore
-    .getAllClients()
+const allArticlesData = () => {
+  articleStore
+    .getAllArticles()
     .then((response) => {
-      productStore.clients = response.data || []
+      articleStore.articles = response.data || []
     })
     .catch((error) => {
       console.error(error)
     })
 }
 
-getAllClientsProduct()
+allArticlesData()
 
 const isSideMenuOpen = ref(false)
 </script>

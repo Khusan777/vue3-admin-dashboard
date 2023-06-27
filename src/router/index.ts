@@ -7,8 +7,13 @@ const router = createRouter({
       path: '/',
       name: 'app',
       component: () => import('../layout/AppLayout.vue'),
-      redirect: { name: 'home' },
+      redirect: { name: 'articles' },
       children: [
+        {
+          path: '/articles',
+          name: 'articles',
+          component: () => import('../views/Tables.vue')
+        },
         {
           path: '/home',
           name: 'home',
@@ -23,16 +28,6 @@ const router = createRouter({
           path: '/about',
           name: 'about',
           component: () => import('../views/About.vue')
-        },
-        {
-          path: '/customers',
-          name: 'customers',
-          component: () => import('../views/Cards.vue')
-        },
-        {
-          path: '/clients',
-          name: 'clients',
-          component: () => import('../views/Tables.vue')
         }
       ]
     }
